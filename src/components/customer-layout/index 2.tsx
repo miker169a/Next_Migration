@@ -1,35 +1,34 @@
-"use client";
-import Link from "next/link";
-import { InvoiceDetailsFallback } from "../index";
-import { Customer } from "../../models/customerserver";
-import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { fetcher } from "@/utils";
-import BetterAddCustomerForm from "../full-stack-forms/add-customer";
-import { ErrorBoundaryComponent } from "../error-boundary";
+import Link from 'next/link'
+import { InvoiceDetailsFallback } from '../index'
+import { Customer } from '../../models/customerserver'
+import { usePathname } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { fetcher } from '@/utils'
+import BetterAddCustomerForm from '../full-stack-forms/add-customer'
+import { ErrorBoundaryComponent } from '../error-boundary'
 
 export default function CustomerLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const { data, isLoading, isError, error } = useQuery(
-    ["customers"],
-    () => fetcher("/api/get-customers-list"),
+    ['customers'],
+    () => fetcher('/api/get-customers-list'),
     { useErrorBoundary: true }
-  );
+  )
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
-  if (isError) throw error;
+  if (isError) throw error
 
-  const newCustomerPathisActive = pathname === "/sales/customers/newCustomer";
+  const newCustomerPathisActive = pathname === '/sales/customers/newCustomer'
   const individualCustomerPathisActive =
-    pathname === `/sales/customers/[customerId]`;
+    pathname === `/sales/customers/[customerId]`
 
   return (
     <div className="flex overflow-hidden rounded-lg border border-gray-100">
@@ -37,23 +36,23 @@ export default function CustomerLayout({
         <div className="w-1/2 border-r border-gray-100">
           <div
             className={
-              "block border-b-4 border-gray-100 py-3 px-4 hover:bg-gray-50" +
-              " " +
-              (newCustomerPathisActive ? "bg-gray-50" : "")
+              'block border-b-4 border-gray-100 py-3 px-4 hover:bg-gray-50' +
+              ' ' +
+              (newCustomerPathisActive ? 'bg-gray-50' : '')
             }
           >
             <BetterAddCustomerForm />
           </div>
           <div className="max-h-96 overflow-y-scroll">
             {data?.customers?.map(
-              (customer: Pick<Customer, "email" | "id" | "name">) => (
+              (customer: Pick<Customer, 'email' | 'id' | 'name'>) => (
                 <Link
                   key={customer.id}
                   href={`/sales/customers/${customer.id}`}
                   className={
-                    "block border-b border-gray-50 py-3 px-4 hover:bg-gray-50" +
-                    " " +
-                    (individualCustomerPathisActive ? "bg-gray-50" : "")
+                    'block border-b border-gray-50 py-3 px-4 hover:bg-gray-50' +
+                    ' ' +
+                    (individualCustomerPathisActive ? 'bg-gray-50' : '')
                   }
                 >
                   <div className="flex justify-between text-[length:14px] font-bold leading-6">
@@ -72,7 +71,7 @@ export default function CustomerLayout({
         </div>
       </ErrorBoundaryComponent>
     </div>
-  );
+  )
 }
 
 export function CustomerSkeleton() {
@@ -80,5 +79,5 @@ export function CustomerSkeleton() {
     <div className="relative p-10">
       <InvoiceDetailsFallback />
     </div>
-  );
+  )
 }

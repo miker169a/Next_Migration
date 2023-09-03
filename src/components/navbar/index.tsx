@@ -1,13 +1,14 @@
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
-import { UpRightArrowIcon, SpinnerIcon, FilePlusIcon } from '..'
-import { SignOut } from '../login'
-import { UploadCompanyLogo } from '../modal/upload-logo-dialog'
-import { LogoRenderer } from '../logo-renderer'
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+// import { UpRightArrowIcon, SpinnerIcon, FilePlusIcon } from '..'
+// import { SpinnerIcon } from '../Icons'
+import { SignOut } from "../login";
+import { UploadCompanyLogo } from "../modal/upload-logo-dialog";
+import { LogoRenderer } from "../logo-renderer";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="relative flex h-screen rounded-lg bg-white text-gray-600">
@@ -16,19 +17,19 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           <LogoRenderer />
           <div className="h-7" />
           <div className="flex flex-col font-bold text-gray-800">
-            <NavItem to="/dashboard" isActive={pathname === '/dashboard'}>
+            <NavItem to="/dashboard" isActive={pathname === "/dashboard"}>
               Dashboard
             </NavItem>
-            <NavItem to="/accounts" isActive={pathname === '/accounts'}>
+            <NavItem to="/accounts" isActive={pathname === "/accounts"}>
               Accounts
             </NavItem>
-            <NavItem to="/sales" isActive={pathname === '/salse'}>
+            <NavItem to="/sales" isActive={pathname === "/salse"}>
               Sales
             </NavItem>
-            <NavItem to="/expenses" isActive={pathname === '/expenses'}>
+            <NavItem to="/expenses" isActive={pathname === "/expenses"}>
               Expenses
             </NavItem>
-            <NavItem to="/reports" isActive={pathname === '/reports'}>
+            <NavItem to="/reports" isActive={pathname === "/reports"}>
               Reports
             </NavItem>
             <div>
@@ -54,7 +55,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-1">{children}</div>
     </div>
-  )
+  );
 }
 
 function NavItem({
@@ -62,29 +63,29 @@ function NavItem({
   children,
   isActive,
 }: {
-  to: string
-  children: React.ReactNode
-  isActive: boolean
+  to: string;
+  children: React.ReactNode;
+  isActive: boolean;
 }) {
   return (
     <Link
       href={to}
       className={`my-1 py-1 px-2 pr-16 text-[length:14px] ${
-        isActive ? 'rounded-md bg-gray-100' : ''
+        isActive ? "rounded-md bg-gray-100" : ""
       }`}
     >
       {children}
     </Link>
-  )
+  );
 }
 
-function Spinner({ visible }: { visible: boolean }) {
-  return (
-    <SpinnerIcon
-      className={clsx('animate-spin transition-opacity', {
-        'opacity-0': !visible,
-        'opacity-100': visible,
-      })}
-    />
-  )
-}
+// function Spinner({ visible }: { visible: boolean }) {
+//   return (
+//     <SpinnerIcon
+//       className={clsx("animate-spin transition-opacity", {
+//         "opacity-0": !visible,
+//         "opacity-100": visible,
+//       })}
+//     />
+//   );
+// }

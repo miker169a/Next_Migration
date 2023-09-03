@@ -1,18 +1,18 @@
 export const inputClasses =
-  'text-lg w-full rounded border border-gray-500 px-2 py-1'
+  "text-lg w-full rounded border border-gray-500 px-2 py-1";
 
 export const submitButtonClasses =
-  'w-full rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400'
+  "w-full rounded bg-green-500 py-2 px-4 text-white hover:bg-green-600 focus:bg-green-400";
 
 export const dangerButtonClasses =
-  'w-full rounded bg-red-600 py-2 px-4 text-white hover:bg-red-700 focus:bg-red-500'
+  "w-full rounded bg-red-600 py-2 px-4 text-white hover:bg-red-700 focus:bg-red-500";
 
 export function LabelText({ children }: { children: React.ReactNode }) {
   return (
     <div className="text-[12px] font-medium uppercase leading-[24px] text-gray-400">
       {children}
     </div>
-  )
+  );
 }
 
 export function FullUserLogo({
@@ -20,59 +20,59 @@ export function FullUserLogo({
   position,
   url,
 }: {
-  size: 'sm' | 'lg'
-  position: 'left' | 'center'
-  url: string
+  size: "sm" | "lg";
+  position: "left" | "center";
+  url: string;
 }) {
   const [logoSize, textSize] = {
     sm: [`h-4 w-4`, `text-d-p-sm`],
     lg: [`h-12 w-12`, `text-d-h2`],
-  }[size]
+  }[size];
   return (
     <div
       className={`flex items-center ${
-        position === 'center' ? 'justify-center' : ''
+        position === "center" ? "justify-center" : ""
       } text-[color:#23BF1F]`}
     >
       <UserLogo className={`w-2/5 ${logoSize}`} url={url} />
       {/* <div className="w-1" />
       <div className={`font-display ${textSize}`}>User</div> */}
     </div>
-  )
+  );
 }
 
 export function UserLogo({
   className,
   url,
 }: {
-  className: string
-  url: string
+  className: string;
+  url: string;
 }) {
-  return <img src={url} className={className} alt="User Logo" />
+  return <img src={url} className={className} alt="User Logo" />;
 }
 
 export function FullFakebooksLogo({
   size,
   position,
 }: {
-  size: 'sm' | 'lg'
-  position: 'left' | 'center'
+  size: "sm" | "lg";
+  position: "left" | "center";
 }) {
   const [logoSize, textSize] = {
     sm: [`h-4 w-4`, `text-d-p-sm`],
     lg: [`h-12 w-12`, `text-d-h2`],
-  }[size]
+  }[size];
   return (
     <div
       className={`flex items-center ${
-        position === 'center' ? 'justify-center' : ''
+        position === "center" ? "justify-center" : ""
       } text-[color:#23BF1F]`}
     >
       <FakebooksLogo className={`relative top-[1px] ${logoSize}`} />
       <div className="w-1" />
       <div className={`font-display ${textSize}`}>Fakebooks</div>
     </div>
-  )
+  );
 }
 
 export function FakebooksLogo({ className }: { className: string }) {
@@ -90,7 +90,7 @@ export function FakebooksLogo({ className }: { className: string }) {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
 
 export function FilePlusIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -111,7 +111,7 @@ export function FilePlusIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M18 9.25h-4.25V5"
       />
     </svg>
-  )
+  );
 }
 
 export function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -125,7 +125,7 @@ export function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M12 5.75v12.5M18.25 12H5.75"
       />
     </svg>
-  )
+  );
 }
 
 export function MinusIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -139,7 +139,7 @@ export function MinusIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M18.25 12.25H5.75"
       />
     </svg>
-  )
+  );
 }
 
 export function CevronDownIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -153,7 +153,7 @@ export function CevronDownIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M15.25 10.75 12 14.25l-3.25-3.5"
       />
     </svg>
-  )
+  );
 }
 
 export function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -167,7 +167,7 @@ export function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 export function LogoutIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -181,7 +181,7 @@ export function LogoutIcon(props: React.SVGProps<SVGSVGElement>) {
         d="m15.75 8.75 3.5 3.25-3.5 3.25M19 12h-8.25M15.25 4.75h-8.5a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h8.5"
       />
     </svg>
-  )
+  );
 }
 
 export function UpRightArrowIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -195,7 +195,7 @@ export function UpRightArrowIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M17.25 15.25v-8.5h-8.5M17 7 6.75 17.25"
       />
     </svg>
-  )
+  );
 }
 
 export function SpinnerIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -209,7 +209,7 @@ export function SpinnerIcon(props: React.SVGProps<SVGSVGElement>) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
 
 export function InvoiceDetailsFallback() {
@@ -239,13 +239,13 @@ export function InvoiceDetailsFallback() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function ErrorFallback({
-  message = 'There was a problem. Sorry.',
+  message = "There was a problem. Sorry.",
 }: {
-  message?: string
+  message?: string;
 }) {
   return (
     <div className="absolute inset-0 flex justify-center bg-red-100 pt-4">
@@ -254,5 +254,5 @@ export function ErrorFallback({
         <div className="px-2 text-[12px]">{message}</div>
       </div>
     </div>
-  )
+  );
 }

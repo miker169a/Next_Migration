@@ -1,16 +1,16 @@
-import { fetcher } from "@/utils";
-import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
-import { FullFakebooksLogo, FullUserLogo, SpinnerIcon } from "..";
+import { fetcher } from '@/utils'
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { FullFakebooksLogo, FullUserLogo, SpinnerIcon } from '..'
 
 export function LogoRenderer({}) {
-  const { data, isLoading, isError } = useQuery(["user"], () =>
-    fetcher("/api/get-user-info/")
-  );
+  const { data, isLoading, isError } = useQuery(['user'], () =>
+    fetcher('/api/get-user-info/')
+  )
 
-  console.log("data", data);
+  console.log('data', data)
 
-  console.log("fetching logo info");
+  console.log('fetching logo info')
 
   return (
     <div className="flex flex-wrap items-center gap-1">
@@ -32,5 +32,5 @@ export function LogoRenderer({}) {
         </Link>
       )} */}
     </div>
-  );
+  )
 }

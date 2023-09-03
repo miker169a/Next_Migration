@@ -1,11 +1,10 @@
-"use client";
-import { FilePlusIcon, inputClasses, LabelText } from "..";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import * as React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { FilePlusIcon, inputClasses, LabelText } from '..'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import * as React from 'react'
+import { useMutation } from '@tanstack/react-query'
 
 import {
   Dialog,
@@ -14,41 +13,41 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../shadui/ui/dialog";
+} from '../../../shadui/ui/dialog'
 
 const newCustomerSchema = z.object({
-  name: z.string().nonempty({ message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email" }),
-});
+  name: z.string().nonempty({ message: 'Name is required' }),
+  email: z.string().email({ message: 'Invalid email' }),
+})
 
-type NewCustomerFormData = z.infer<typeof newCustomerSchema>;
+type NewCustomerFormData = z.infer<typeof newCustomerSchema>
 
 export default function BetterAddCustomerForm() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<NewCustomerFormData>({
     resolver: zodResolver(newCustomerSchema),
-  });
+  })
 
   const mutation = useMutation({
     mutationFn: (formData: any) => {
-      return fetch("/api/add-customer", {
-        method: "POST",
+      return fetch('/api/add-customer', {
+        method: 'POST',
         body: JSON.stringify(formData),
-      });
+      })
     },
-  });
+  })
 
-  const router = useRouter();
+  const router = useRouter()
 
   async function _addCustomerAction(data: NewCustomerFormData) {
-    const result = await mutation.mutateAsync(data);
-    const newCustomer = await result.json();
-    setOpen(false);
-    router.push(`/sales/customers/${newCustomer.id}`);
+    const result = await mutation.mutateAsync(data)
+    const newCustomer = await result.json()
+    setOpen(false)
+    router.push(`/sales/customers/${newCustomer.id}`)
   }
 
   return (
@@ -77,7 +76,7 @@ export default function BetterAddCustomerForm() {
                 id="name"
                 className={inputClasses}
                 type="text"
-                {...register("name")}
+                {...register('name')}
               />
               {errors.name && (
                 <p className="text-red-500">{errors.name.message}</p>
@@ -91,7 +90,7 @@ export default function BetterAddCustomerForm() {
                 id="email"
                 className={inputClasses}
                 type="email"
-                {...register("email")}
+                {...register('email')}
               />
             </div>
             <input type="submit" />
@@ -102,5 +101,5 @@ export default function BetterAddCustomerForm() {
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
