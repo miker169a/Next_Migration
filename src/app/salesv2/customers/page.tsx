@@ -1,5 +1,3 @@
-function customersPage({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+export default function Page() {
+  return null;
 }
-
-export default customersPage;

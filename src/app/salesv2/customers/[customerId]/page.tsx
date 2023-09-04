@@ -1,17 +1,15 @@
-"use client";
 import CustomerIdPage from "@/components/customer-id-page";
-import { useQuery } from "@tanstack/react-query";
-import { fetcher } from "@/utils";
+import {
+  getCustomerDetails,
+  getCustomerInfo,
+  getCustomerListItems,
+} from "@/models/customerserver";
+import { NextResponse } from "next/server";
 
-function CustomerIdRoute({ params }: { params: { customerId: string } }) {
+async function CustomerIdRoute({ params }: { params: { customerId: string } }) {
   const { customerId } = params;
 
-  const customerQueryData = useQuery(
-    ["customer", customerId],
-    () => fetcher(`/api/customers/${customerId}`),
-    { useErrorBoundary: true, enabled: !!customerId }
-  );
-  return <CustomerIdPage customerInfo={customerQueryData} />;
+  return <CustomerIdPage customerId={customerId} />;
 }
 
 // CustomerIdRoute.getLayout = function getLayout(page: React.ReactNode) {
