@@ -2,13 +2,15 @@ import CustomerLayout from "@/components/customer-layout";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getCustomerListItems } from "@/models/customerserver";
 
-function CustomersLayout({ children }: { children: React.ReactNode }) {
+async function CustomersLayout({ children }: { children: React.ReactNode }) {
   const session = getServerSession(authOptions);
   if (!session) {
     redirect("/login");
   }
-  return <CustomerLayout>{children}</CustomerLayout>;
+  const customers = await getCustomerListItems();
+  return <CustomerLayout customers={customers}>{children}</CustomerLayout>;
 }
 
 export default CustomersLayout;

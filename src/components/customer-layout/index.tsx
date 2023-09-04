@@ -10,22 +10,12 @@ import { ErrorBoundaryComponent } from "../error-boundary";
 
 export default function CustomerLayout({
   children,
+  customers,
 }: {
   children: React.ReactNode;
+  customers: Pick<Customer, "email" | "id" | "name">[];
 }) {
   const pathname = usePathname();
-
-  const { data, isLoading, isError, error } = useQuery(
-    ["customers"],
-    () => fetcher("/api/customers"),
-    { useErrorBoundary: true }
-  );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) throw error;
 
   const newCustomerPathisActive = pathname === "/sales/customers/newCustomer";
   const individualCustomerPathisActive =
@@ -45,7 +35,7 @@ export default function CustomerLayout({
             <BetterAddCustomerForm />
           </div>
           <div className="max-h-96 overflow-y-scroll">
-            {data?.customers?.map(
+            {customers?.map(
               (customer: Pick<Customer, "email" | "id" | "name">) => (
                 <Link
                   key={customer.id}
