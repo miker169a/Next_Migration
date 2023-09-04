@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
@@ -8,26 +7,27 @@ import {
   getCustomerListItems,
 } from "@/models/customerserver";
 import invariant from "tiny-invariant";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, authOptions);
+export async function GET(req: NextRequest, context: any) {
+  const session = await getServerSession(authOptions);
   if (!session) {
-    return res.status(401).send("Unauthorized");
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const customerId = req.query.params as string;
-
+  const { customerId } = context.params;
   invariant(
     typeof customerId === "string",
     "params.customerId is not available"
   );
   const customerInfo = await getCustomerInfo(customerId);
   if (!customerInfo) {
-    throw new Response("not found", { status: 404 });
+    return NextResponse.json({ error: "not found" }, { status: 404 });
   }
   const customerDetails = await getCustomerDetails(customerId);
   const customers = await getCustomerListItems();
 
   const data = { customers, customerInfo, customerDetails };
 
-  res.status(200).json(data);
-};
+  console.log("data", data);
+  return NextResponse.json(data, { status: 200 });
+}

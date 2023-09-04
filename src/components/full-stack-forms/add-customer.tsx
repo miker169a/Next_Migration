@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import * as React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   Dialog,
@@ -33,12 +33,17 @@ export default function BetterAddCustomerForm() {
     resolver: zodResolver(newCustomerSchema),
   });
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (formData: any) => {
       return fetch("/api/add-customer", {
         method: "POST",
         body: JSON.stringify(formData),
       });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
     },
   });
 

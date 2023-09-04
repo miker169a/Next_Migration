@@ -1,41 +1,41 @@
-import Link from 'next/link'
-import { LabelText } from '@/components'
-import { currencyFormatter, fetcher } from '@/utils'
-import { Deposits, LineItemDisplay } from '@/components/deposit'
-import InvoicesPage from '@/components/invoice-page'
-import Layout from '@/components/layouts'
-import SalesNav from '@/components/sales-nav'
-import { useRouter } from 'next/router'
-import { useQuery } from '@tanstack/react-query'
-import { CustomerSkeleton } from '@/components/customer-layout'
-import { LineItem } from '@prisma/client'
+import Link from "next/link";
+import { LabelText } from "@/components";
+import { currencyFormatter, fetcher } from "@/utils";
+import { Deposits, LineItemDisplay } from "@/components/deposit";
+import Layout from "@/components/layouts";
+import SalesNav from "@/components/sales-nav";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import { CustomerSkeleton } from "@/components/customer-layout";
+import { LineItem } from "@prisma/client";
+import InvoicesPage from "@/components/invoice-page";
 
 export function validateAmount(amount: number) {
-  if (amount <= 0) return 'Must be greater than 0'
+  if (amount <= 0) return "Must be greater than 0";
   if (Number(amount.toFixed(2)) !== amount) {
-    return 'Must only have two decimal places'
+    return "Must only have two decimal places";
   }
-  return null
+  return null;
 }
 
 export function validateDepositDate(date: Date) {
   if (Number.isNaN(date.getTime())) {
-    return 'Please enter a valid date'
+    return "Please enter a valid date";
   }
-  return null
+  return null;
 }
 
 export const lineItemClassName =
-  'flex justify-between border-t border-gray-100 py-4 text-[14px] leading-[24px]'
+  "flex justify-between border-t border-gray-100 py-4 text-[14px] leading-[24px]";
 
 function InvoiceRoute() {
-  const router = useRouter()
-  const invoiceId = router.query.invoiceId
+  const router = useRouter();
+  const invoiceId = router.query.invoiceId;
 
   const { data, isLoading, isSuccess, isError } = useQuery(
-    ['invoices', invoiceId],
+    ["invoices", invoiceId],
     () => fetcher(`/api/get-invoice/${invoiceId}`)
-  )
+  );
 
   return (
     <>
@@ -54,11 +54,11 @@ function InvoiceRoute() {
           <LabelText>
             <span
               className={
-                data?.invoiceData.dueStatus === 'paid'
-                  ? 'text-green-brand'
-                  : data?.invoiceData.dueStatus === 'overdue'
-                  ? 'text-red-brand'
-                  : ''
+                data?.invoiceData.dueStatus === "paid"
+                  ? "text-green-brand"
+                  : data?.invoiceData.dueStatus === "overdue"
+                  ? "text-red-brand"
+                  : ""
               }
             >
               {data?.invoiceData.dueDisplay}
@@ -83,7 +83,7 @@ function InvoiceRoute() {
         </div>
       )}
     </>
-  )
+  );
 }
 
 InvoiceRoute.getLayout = function getLayout(page: React.ReactNode) {
@@ -93,7 +93,7 @@ InvoiceRoute.getLayout = function getLayout(page: React.ReactNode) {
         <InvoicesPage>{page}</InvoicesPage>
       </SalesNav>
     </Layout>
-  )
-}
+  );
+};
 
-export default InvoiceRoute
+export default InvoiceRoute;

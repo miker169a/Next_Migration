@@ -17,7 +17,7 @@ export default function CustomerLayout({
 
   const { data, isLoading, isError, error } = useQuery(
     ["customers"],
-    () => fetcher("/api/get-customers-list"),
+    () => fetcher("/api/customers"),
     { useErrorBoundary: true }
   );
 

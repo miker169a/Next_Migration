@@ -1,28 +1,30 @@
-import Link from 'next/link'
-import { FilePlusIcon, LabelText } from '../index'
-import { currencyFormatter, fetcher } from '../../utils'
-import { usePathname } from 'next/navigation'
-import { AddInvoiceDialog } from '../modal/add-invoice-dialog'
-import { useQuery } from '@tanstack/react-query'
+"use client";
+import Link from "next/link";
+import { FilePlusIcon, LabelText } from "../index";
+import { currencyFormatter, fetcher } from "../../utils";
+import { usePathname } from "next/navigation";
+import { AddInvoiceDialog } from "../modal/add-invoice-dialog";
+import { useQuery } from "@tanstack/react-query";
 
 export default function InvoicesPage({
   children,
 }: {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }) {
-  const { data, isLoading, isError } = useQuery(['invoices'], () =>
-    fetcher('/api/get-invoice-list-items')
-  )
+  console.log("hit invoices page");
+  const { data, isLoading, isError } = useQuery(["invoices"], () =>
+    fetcher("/api/get-invoice-list-items")
+  );
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error</div>
+    return <div>Error</div>;
   }
 
-  const { allInvoicesData, dueSoonPercent } = data
+  const { allInvoicesData, dueSoonPercent } = data;
 
   return (
     <div className="relative">
@@ -48,7 +50,7 @@ export default function InvoicesPage({
         {children}
       </InvoiceList>
     </div>
-  )
+  );
 }
 
 function InvoicesInfo({
@@ -56,40 +58,40 @@ function InvoicesInfo({
   amount,
   right,
 }: {
-  label: string
-  amount: number
-  right?: boolean
+  label: string;
+  amount: number;
+  right?: boolean;
 }) {
   return (
-    <div className={right ? 'text-right' : ''}>
+    <div className={right ? "text-right" : ""}>
       <LabelText>{label}</LabelText>
       <div className="text-[length:18px] text-black">
         {currencyFormatter.format(amount)}
       </div>
     </div>
-  )
+  );
 }
 
 function InvoiceList({
   children,
   invoiceListItems,
 }: {
-  children: React.ReactNode
-  invoiceListItems: InvoiceData['invoiceListItems']
+  children: React.ReactNode;
+  invoiceListItems: InvoiceData["invoiceListItems"];
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  const newInvoiceRouteIsActive = pathname === '/sales/invoices/newInvoice'
-  const singleInvoiceRouteIsActive = pathname === '/sales/invoices/[invoiceId]'
+  const newInvoiceRouteIsActive = pathname === "/sales/invoices/newInvoice";
+  const singleInvoiceRouteIsActive = pathname === "/sales/invoices/[invoiceId]";
 
   return (
     <div className="flex overflow-hidden rounded-lg border border-gray-100">
       <div className="w-1/2 border-r border-gray-100">
         <div
           className={
-            'block border-b-4 border-gray-100 py-3 px-4 hover:bg-gray-50' +
-            ' ' +
-            (newInvoiceRouteIsActive ? 'bg-gray-50' : '')
+            "block border-b-4 border-gray-100 py-3 px-4 hover:bg-gray-50" +
+            " " +
+            (newInvoiceRouteIsActive ? "bg-gray-50" : "")
           }
         >
           {
@@ -109,9 +111,9 @@ function InvoiceList({
               key={invoice.id}
               href={`/sales/invoices/${invoice.id}`}
               className={
-                'block border-b border-gray-50 py-3 px-4 hover:bg-gray-50' +
-                ' ' +
-                (singleInvoiceRouteIsActive ? 'bg-gray-50' : '')
+                "block border-b border-gray-50 py-3 px-4 hover:bg-gray-50" +
+                " " +
+                (singleInvoiceRouteIsActive ? "bg-gray-50" : "")
               }
             >
               <div className="flex justify-between text-[length:14px] font-bold leading-6">
@@ -122,13 +124,13 @@ function InvoiceList({
                 <div>{invoice.number}</div>
                 <div
                   className={
-                    'uppercase' +
-                    ' ' +
-                    (invoice.dueStatus === 'paid'
-                      ? 'text-green-brand'
-                      : invoice.dueStatus === 'overdue'
-                      ? 'text-red-brand'
-                      : '')
+                    "uppercase" +
+                    " " +
+                    (invoice.dueStatus === "paid"
+                      ? "text-green-brand"
+                      : invoice.dueStatus === "overdue"
+                      ? "text-red-brand"
+                      : "")
                   }
                 >
                   {invoice.dueStatusDisplay}
@@ -140,20 +142,20 @@ function InvoiceList({
       </div>
       <div className="w-1/2">{children}</div>
     </div>
-  )
+  );
 }
 
 interface InvoiceData {
   invoiceListItems: {
-    totalAmount: number
-    totalDeposits: number
-    daysToDueDate: number
-    dueStatus: 'paid' | 'overpaid' | 'overdue' | 'due'
-    dueStatusDisplay: string
-    id: string
-    name: string
-    number: number
-  }[]
-  overdueAmount: number
-  dueSoonAmount: number
+    totalAmount: number;
+    totalDeposits: number;
+    daysToDueDate: number;
+    dueStatus: "paid" | "overpaid" | "overdue" | "due";
+    dueStatusDisplay: string;
+    id: string;
+    name: string;
+    number: number;
+  }[];
+  overdueAmount: number;
+  dueSoonAmount: number;
 }

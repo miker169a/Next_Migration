@@ -1,7 +1,7 @@
 import CustomerLayout from "@/components/customer-layout";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 function CustomersLayout({ children }: { children: React.ReactNode }) {
   const session = getServerSession(authOptions);

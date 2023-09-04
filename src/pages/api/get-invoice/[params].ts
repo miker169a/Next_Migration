@@ -1,21 +1,21 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../auth/[...nextauth]'
-import { getInvoiceDetails, getInvoiceListItems } from '@/models/invoiceserver'
+import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getInvoiceDetails, getInvoiceListItems } from "@/models/invoiceserver";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getServerSession(req, res, authOptions)
+  const session = await getServerSession(req, res, authOptions);
   if (!session) {
-    return res.status(401).send('Unauthorized')
+    return res.status(401).send("Unauthorized");
   }
-  const invoiceId = req.query.params as string
+  const invoiceId = req.query.params as string;
 
-  if (typeof invoiceId !== 'string') {
-    throw new Error('This should be impossible.')
+  if (typeof invoiceId !== "string") {
+    throw new Error("This should be impossible.");
   }
-  const invoiceDetails = await getInvoiceDetails(invoiceId)
+  const invoiceDetails = await getInvoiceDetails(invoiceId);
   if (!invoiceDetails) {
-    throw new Response('not found', { status: 404 })
+    throw new Response("not found", { status: 404 });
   }
   const invoiceData = {
     customerName: invoiceDetails.invoice.customer.name,
@@ -36,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       depositDateFormatted: deposit.depositDate.toLocaleDateString(),
     })),
     invoiceId: invoiceId,
-  }
+  };
 
-  res.status(200).json({ invoiceData })
-}
+  res.status(200).json({ invoiceData });
+};

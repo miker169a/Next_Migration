@@ -8,7 +8,7 @@ function CustomerIdRoute({ params }: { params: { customerId: string } }) {
 
   const customerQueryData = useQuery(
     ["customer", customerId],
-    () => fetcher(`/api/get-customer/${customerId}`),
+    () => fetcher(`/api/customers/${customerId}`),
     { useErrorBoundary: true, enabled: !!customerId }
   );
   return <CustomerIdPage customerInfo={customerQueryData} />;
